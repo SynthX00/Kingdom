@@ -11,9 +11,7 @@ public class scr_GameManager : MonoBehaviour
     public int[,] level;
 
     public GameObject selectedTile;
-
-    public Text text;
-    public int wood, stone, gold;
+    public Text selectedTileText;
 
     // Use this for initialization
     void Start()
@@ -29,11 +27,13 @@ public class scr_GameManager : MonoBehaviour
         //select tile
         if (Input.GetMouseButtonDown(0) && (Input.mousePosition.x<756f))
         {
-            Debug.Log(Input.mousePosition.x + " :: " + Input.mousePosition.y);                                                                              //posicao no ecra
+            //Debug.Log(Input.mousePosition.x + " :: " + Input.mousePosition.y                                                                              //posicao no ecra
             //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition).x + " :: " + Camera.main.ScreenToWorldPoint(Input.mousePosition).y);            //posicao no mundo
 
             selectedTile = selected(new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y));
-            //selectedTile.
+            scr_Tile scrTile = selectedTile.GetComponent<scr_Tile>();
+
+            selectedTileText.text = "X: " + scrTile.x + " Y: " + scrTile.y + "\n" + "Tile: " + scrTile.tileType;
         }
     }
     
