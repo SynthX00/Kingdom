@@ -15,7 +15,7 @@ public class scr_Tile : MonoBehaviour {
 
     public Sprite[] tileSprites;
 
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
 
     // Use this for initialization
     void Start () {

@@ -33,7 +33,13 @@ public class scr_GameManager : MonoBehaviour
             selectedTile = selected(new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y));
             scr_Tile scrTile = selectedTile.GetComponent<scr_Tile>();
 
-            selectedTileText.text = "X: " + scrTile.x + " Y: " + scrTile.y + "\n" + "Tile: " + scrTile.tileType;
+            selectedTileText.text = "X: " + scrTile.x + " Y: " + scrTile.y + "\t" + "Tile: " + scrTile.tileType;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            selectedTile = null;
+            selectedTileText.text = "X: \tY: \t Tile: ";
         }
     }
     
