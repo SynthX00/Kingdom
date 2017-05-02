@@ -6,6 +6,8 @@ public class scr_Tile : MonoBehaviour {
 
     public enum tile { empty, floor, forest, stone, gold };
 
+    public GameObject gameManager;
+
     public GameObject levelGen;
     public scr_LevelGenerator levelScript;
     public int[,] level;
@@ -22,7 +24,9 @@ public class scr_Tile : MonoBehaviour {
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        levelGen = GameObject.Find("Level");
+        gameManager = GameObject.Find("GameManager");
+
+        levelGen = gameManager.GetComponent<scr_GameManager>().levelGen;
         levelScript = levelGen.GetComponent<scr_LevelGenerator>();
         level = levelScript.level;
 

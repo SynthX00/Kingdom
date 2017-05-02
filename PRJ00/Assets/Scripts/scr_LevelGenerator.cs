@@ -5,11 +5,14 @@ public class scr_LevelGenerator : MonoBehaviour
 {
     public enum tile { empty, floor, forest, stone, gold };
 
+    public GameObject gameManager;
+    public GameObject cam;
+
     public int steps;
     public int gridX, gridY;
 
     public GameObject newTile;      //test
-    public GameObject[] tileTypes;
+    //public GameObject[] tileTypes;
 
     public int forestRate;
     public int stoneRate;
@@ -17,6 +20,9 @@ public class scr_LevelGenerator : MonoBehaviour
 
     public int[,] level;
     public GameObject[,] levelObjects;
+
+
+    private int startX, startY;
 
     private int floorCount = 0;
 
@@ -189,7 +195,7 @@ public class scr_LevelGenerator : MonoBehaviour
                     //go = Instantiate(tileTypes[(int)tile.empty], new Vector3(x + 64, y + 64, 0), Quaternion.identity);
                     //go.transform.parent = transform;
 
-                    //levelObjects[x, y] = go;
+                    levelObjects[x, y] = go;
                 }
                 else if (level[x, y] == (int)tile.floor)
                 {
@@ -203,7 +209,7 @@ public class scr_LevelGenerator : MonoBehaviour
                     //go = Instantiate(tileTypes[(int)tile.floor], new Vector3(x + 64, y + 64, 0), Quaternion.identity);
                     //go.transform.parent = transform;
 
-                    //levelObjects[x, y] = go;
+                    levelObjects[x, y] = go;
                 }
                 else if (level[x, y] == (int)tile.forest)
                 {
@@ -217,7 +223,7 @@ public class scr_LevelGenerator : MonoBehaviour
                     //go = Instantiate(tileTypes[(int)tile.forest], new Vector3(x + 64, y + 64, 0), Quaternion.identity);
                     //go.transform.parent = transform;
 
-                    //levelObjects[x, y] = go;
+                    levelObjects[x, y] = go;
                 }
                 else if (level[x, y] == (int)tile.stone)
                 {
@@ -231,7 +237,7 @@ public class scr_LevelGenerator : MonoBehaviour
                     //go = Instantiate(tileTypes[(int)tile.stone], new Vector3(x + 64, y + 64, 0), Quaternion.identity);
                     //go.transform.parent = transform;
 
-                    //levelObjects[x, y] = go;
+                    levelObjects[x, y] = go;
                 }
                 else if (level[x, y] == (int)tile.gold)
                 {
@@ -245,12 +251,38 @@ public class scr_LevelGenerator : MonoBehaviour
                     //go = Instantiate(tileTypes[(int)tile.gold], new Vector3(x + 64, y + 64, 0), Quaternion.identity);
                     //go.transform.parent = transform;
 
-                    //levelObjects[x, y] = go;
+                    levelObjects[x, y] = go;
                 }
             }
         }
         #endregion
 
+        #region startPosition
+
+        //set random start position
+        bool _temp = false;
+        do
+        {
+            int _x = (int)Random.Range(0, gridX);
+            int _y = (int)Random.Range(0, gridY);
+
+            if (level[_x, _y] != 0)
+            {
+                startX = _x;
+                startY = _y;
+                _temp = true;
+            }
+        } while (!_temp);
+
+        gameManager.GetComponent<scr_GameManager>().startX = startX;
+        gameManager.GetComponent<scr_GameManager>().startY = startY;
+
+        //cam.GetComponent<scr_Cam>().x = startX;
+        //cam.GetComponent<scr_Cam>().y = startY;
+
+        cam.transform.position = new Vector3(Mathf.Clamp(startX + 64 + 0.5f, 11 + 0.5f + 64, 53 - 0.3f + 64), Mathf.Clamp(startY + 64 - 0.5f, 7.5f + 64, 54 + 0.5f + 64), -10);
+
+        #endregion
     }
 
 }

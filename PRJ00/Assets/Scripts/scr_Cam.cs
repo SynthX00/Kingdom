@@ -5,7 +5,10 @@ using UnityEngine;
 public class scr_Cam : MonoBehaviour
 {
 
+    public GameObject gameManager;
+
     //private GameObject levelObject;
+    public GameObject levelGen;
     public scr_LevelGenerator levelScript;
     public int[,] level;
 
@@ -14,30 +17,34 @@ public class scr_Cam : MonoBehaviour
     private Vector3 dragOrigin, pos;
     private bool isPanning = false;
 
-    private int x, y;
+    public int x, y;
 
     // Use this for initialization
     void Start()
     {
-
+        levelGen = gameManager.GetComponent<scr_GameManager>().levelGen;
+        levelScript = levelGen.GetComponent<scr_LevelGenerator>();
         level = levelScript.level;
 
         //set camera start position
         //set random x,y
-        bool _temp = false;
-        do
-        {
-            int _x = (int)Random.Range(0, levelScript.gridX);
-            int _y = (int)Random.Range(0, levelScript.gridY);
+        //bool _temp = false;
+        //do
+        //{
+        //    int _x = (int)Random.Range(0, levelScript.gridX);
+        //    int _y = (int)Random.Range(0, levelScript.gridY);
 
-            if (level[_x, _y] != 0)
-            {
-                x = _x;
-                y = _y;
-                _temp = true;
-            }
-        } while (!_temp);
-        transform.position = new Vector3(Mathf.Clamp(x + 64 + 0.5f, 11 + 0.5f + 64, 53 - 0.3f + 64), Mathf.Clamp(y + 64 - 0.5f, 7.5f + 64, 54 + 0.5f + 64), -10);
+        //    if (level[_x, _y] != 0)
+        //    {
+        //        x = _x;
+        //        y = _y;
+        //        _temp = true;
+        //    }
+        //} while (!_temp);
+
+        //x = (int)Random.Range(0, levelScript.gridX);
+        //y = (int)Random.Range(0, levelScript.gridY);
+        //transform.position = new Vector3(Mathf.Clamp(x + 64 + 0.5f, 11 + 0.5f + 64, 53 - 0.3f + 64), Mathf.Clamp(y + 64 - 0.5f, 7.5f + 64, 54 + 0.5f + 64), -10);
     }
 
     // Update is called once per frame
