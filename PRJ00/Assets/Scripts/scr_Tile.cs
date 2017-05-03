@@ -16,12 +16,16 @@ public class scr_Tile : MonoBehaviour
     public int x, y;
     public tile tileType;
 
+
+    //guardar as sprites no GM
     public Sprite[] tileEdge;
     public Sprite[] tileSea;
-
     public Sprite[] tileDirt;
+    public Sprite[] tileTree;
 
-    public Sprite[] tileSprites;
+    public Sprite tileStone;
+    public Sprite tileGold;
+    public Sprite tileNULL;
 
     public SpriteRenderer spriteRenderer;
 
@@ -61,7 +65,7 @@ public class scr_Tile : MonoBehaviour
                 _i = 0;
                 if ((int)Random.Range(0, 10) == 0)
                 {
-                    _i = (int)Random.Range(1, tileDirt.Length);
+                    _i = (int)Random.Range(0, tileDirt.Length);
                     spriteRenderer.sprite = tileDirt[_i];
                 }
                 else
@@ -71,16 +75,19 @@ public class scr_Tile : MonoBehaviour
 
                 break;
             case tile.forest:
-                spriteRenderer.sprite = tileSprites[3];
+
+                _i = (int)Random.Range(0, tileTree.Length);
+                spriteRenderer.sprite = tileTree[_i];
+
                 break;
             case tile.stone:
-                spriteRenderer.sprite = tileSprites[4];
+                spriteRenderer.sprite = tileStone;
                 break;
             case tile.gold:
-                spriteRenderer.sprite = tileSprites[2];
+                spriteRenderer.sprite = tileGold;
                 break;
             default:
-                spriteRenderer.sprite = tileSprites[6];
+                spriteRenderer.sprite = tileNULL;
                 break;
         }
 
