@@ -48,10 +48,20 @@ public class scr_GameManager : MonoBehaviour
             selectedTileText.text = "X: " + scrTile.x + " Y: " + scrTile.y + "\t" + "Tile: " + scrTile.tileType;
         }
 
+        //deselect tile
         if (Input.GetMouseButtonDown(1))
         {
             selectedTile = null;
             selectedTileText.text = "X: \tY: \t Tile: ";
+        }
+
+        //start position
+        if (Input.GetMouseButtonDown(2))
+        {
+            selectedTile = null;
+            selectedTileText.text = "X: \tY: \t Tile: ";
+
+            cam.transform.position = new Vector3(Mathf.Clamp(startX + 64 + 0.5f, 11 + 0.5f + 64, 53 - 0.3f + 64), Mathf.Clamp(startY + 64 - 0.5f, 7.5f + 64, 54 + 0.5f + 64), -10);
         }
     }
 
