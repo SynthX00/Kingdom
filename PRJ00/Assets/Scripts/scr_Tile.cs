@@ -37,17 +37,38 @@ public class scr_Tile : MonoBehaviour
         levelScript = levelGen.GetComponent<scr_LevelGenerator>();
         level = levelScript.level;
 
-        int i;
+
         //set sprite
+        int _i;
         switch (tileType)
         {
             case tile.empty:
-                i = (int)Random.Range(0, tileSea.Length);
-                spriteRenderer.sprite = tileSea[i];
+
+                _i = 0;
+                if ((int)Random.Range(0,10) == 0)
+                {
+                    _i = (int)Random.Range(1, tileSea.Length);
+                    spriteRenderer.sprite = tileSea[_i];
+                }
+                else
+                {
+                    spriteRenderer.sprite = tileSea[0];
+                }
+
                 break;
             case tile.floor:
-                i = (int)Random.Range(0, tileDirt.Length);
-                spriteRenderer.sprite = tileDirt[i];
+
+                _i = 0;
+                if ((int)Random.Range(0, 10) == 0)
+                {
+                    _i = (int)Random.Range(1, tileDirt.Length);
+                    spriteRenderer.sprite = tileDirt[_i];
+                }
+                else
+                {
+                    spriteRenderer.sprite = tileDirt[0];
+                }
+
                 break;
             case tile.forest:
                 spriteRenderer.sprite = tileSprites[3];
@@ -69,40 +90,52 @@ public class scr_Tile : MonoBehaviour
         //check Sea Edge
         if (level[x, y] == 0)
         {
-            if (level[x + 1, y] != 0)
+            if (x!=levelScript.gridX-1)
             {
-                go = new GameObject("edge_Right");
-                go.AddComponent<SpriteRenderer>().sprite = tileEdge[0];
-                go.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                go.transform.position = transform.position;
-                go.transform.parent = transform;
-            }
-            
-            if (level[x - 1, y] != 0)
-            {
-                go = new GameObject("edge_Left");
-                go.AddComponent<SpriteRenderer>().sprite = tileEdge[1];
-                go.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                go.transform.position = transform.position;
-                go.transform.parent = transform;
+                if (level[x + 1, y] != 0)
+                {
+                    go = new GameObject("edge_Right");
+                    go.AddComponent<SpriteRenderer>().sprite = tileEdge[0];
+                    go.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                    go.transform.position = transform.position;
+                    go.transform.parent = transform;
+                }
             }
 
-            if (level[x, y + 1] != 0)
+            if (x != 0)
             {
-                go = new GameObject("edge_Top");
-                go.AddComponent<SpriteRenderer>().sprite = tileEdge[2];
-                go.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                go.transform.position = transform.position;
-                go.transform.parent = transform;
+                if (level[x - 1, y] != 0)
+                {
+                    go = new GameObject("edge_Left");
+                    go.AddComponent<SpriteRenderer>().sprite = tileEdge[1];
+                    go.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                    go.transform.position = transform.position;
+                    go.transform.parent = transform;
+                }
             }
 
-            if (level[x, y - 1] != 0)
+            if (y != levelScript.gridY-1)
             {
-                go = new GameObject("edge_Bottom");
-                go.AddComponent<SpriteRenderer>().sprite = tileEdge[3];
-                go.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                go.transform.position = transform.position;
-                go.transform.parent = transform;
+                if (level[x, y + 1] != 0)
+                {
+                    go = new GameObject("edge_Top");
+                    go.AddComponent<SpriteRenderer>().sprite = tileEdge[2];
+                    go.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                    go.transform.position = transform.position;
+                    go.transform.parent = transform;
+                }
+            }
+
+            if (y != 0)
+            {
+                if (level[x, y - 1] != 0)
+                {
+                    go = new GameObject("edge_Bottom");
+                    go.AddComponent<SpriteRenderer>().sprite = tileEdge[3];
+                    go.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                    go.transform.position = transform.position;
+                    go.transform.parent = transform;
+                }
             }
         }
         #endregion
