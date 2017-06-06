@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class scr_GameManager : MonoBehaviour
 {
+    
     public GameObject cam;
 
     public GameObject levelGenPrefab;
@@ -17,6 +18,10 @@ public class scr_GameManager : MonoBehaviour
     public Text selectedTileText;
 
     public int startX, startY;
+
+    public List<GameObject> btn = new List<GameObject>();
+
+    scr_Tile scrTile;
 
     // Use this for initialization
     void Start()
@@ -43,9 +48,17 @@ public class scr_GameManager : MonoBehaviour
             //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition).x + " :: " + Camera.main.ScreenToWorldPoint(Input.mousePosition).y);            //posicao no mundo
 
             selectedTile = selected(new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y));
-            scr_Tile scrTile = selectedTile.GetComponent<scr_Tile>();
+            scrTile = selectedTile.GetComponent<scr_Tile>();
 
             selectedTileText.text = "X: " + scrTile.x + " Y: " + scrTile.y + "\t" + "Tile: " + scrTile.tileType;
+
+            //btns
+            foreach (GameObject go in btn)
+            {
+                go.SetActive(false);
+            }
+
+            btn[(int)scrTile.tileType].SetActive(true);
         }
 
         //deselect tile
@@ -69,5 +82,13 @@ public class scr_GameManager : MonoBehaviour
     {
         var obj = Physics2D.OverlapPoint(pos);
         return obj.gameObject;
+    }
+
+
+    //btn trigger
+    public void ForestHarvest()
+    {
+        Debug.Log("");
+        Destroy(scrTile.gameObject);
     }
 }
