@@ -5,9 +5,28 @@ using UnityEngine;
 public class scr_Tile : MonoBehaviour
 {
 
-    public enum tile { empty, floor, forest, stone, gold };
+    /*
+     build//
+        road;
+        lumber camp; +75w -15s
+        mining camp; +75s -15g
+        mining camp gold; +75g -15w
+        storehouse; store more resources
+        dock; +125g -25w -25s
+        farm; +50w -5g
+        temple; -150g -50w -75s
+        market; trade stuff
+        wonder; 250w 250s 250g
+        workshop; harvest, lumbercamp, miningcamp +25res
+        statue; -75s -15w
+        academy; unlock workshop, wonder; 
+     */
+
+    public enum tile { empty, floor, forest, stone, gold, building };
+    public enum buildings { none = -1, lumbercamp, miningcamp1, miningcamp2, storehouse, dock, farm, temple, market, wonder, workshop, statue, academy };
 
     public GameObject gameManager;
+    public scr_GameManager gmScript;
 
     public GameObject levelGen;
     public scr_LevelGenerator levelScript;
@@ -15,8 +34,8 @@ public class scr_Tile : MonoBehaviour
 
     public int x, y;
     public tile tileType;
-
-
+    public buildings buildingType;
+    public bool isBuilding;
     //guardar as sprites no GM
     public Sprite[] tileEdge;
     public Sprite[] tileSea;
@@ -33,9 +52,14 @@ public class scr_Tile : MonoBehaviour
     void Start()
     {
 
+
+        buildingType = buildings.none;
+        isBuilding = false;
+
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         gameManager = GameObject.Find("GameManager");
+        gmScript = gameManager.GetComponent<scr_GameManager>();
 
         levelGen = gameManager.GetComponent<scr_GameManager>().levelGen;
         levelScript = levelGen.GetComponent<scr_LevelGenerator>();
@@ -153,5 +177,70 @@ public class scr_Tile : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void UpdateTile(tile newType)
+    {
+        switch (newType)
+        {
+            case tile.floor:
+
+                tileType = newType;
+                spriteRenderer.sprite = tileDirt[0];
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void SetBuilding(buildings newBuilding)
+    {
+        if (tileType == tile.floor)
+        {
+            isBuilding = true;
+
+            switch (newBuilding)
+            {
+                case buildings.lumbercamp:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
+                    break;
+                case buildings.miningcamp1:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
+                    break;
+                case buildings.miningcamp2:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
+                    break;
+                case buildings.storehouse:
+                    break;
+                case buildings.dock:
+                    break;
+                case buildings.farm:
+                    break;
+                case buildings.temple:
+                    break;
+                case buildings.market:
+                    break;
+                case buildings.wonder:
+                    break;
+                case buildings.workshop:
+                    break;
+                case buildings.statue:
+                    break;
+                case buildings.academy:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
