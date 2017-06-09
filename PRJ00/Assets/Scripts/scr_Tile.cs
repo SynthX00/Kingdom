@@ -23,7 +23,7 @@ public class scr_Tile : MonoBehaviour
      */
 
     public enum tile { empty, floor, forest, stone, gold, building };
-    public enum buildings { none = -1, lumbercamp, miningcamp1, miningcamp2, storehouse, dock, farm, temple, market, wonder, workshop, statue, academy };
+    public enum buildings { none = -1, lumbercamp, miningcamp1, miningcamp2, storehouse, dock, farm, temple, market, wonder, workshop, statue, academy, townhall };
 
     public GameObject gameManager;
     public scr_GameManager gmScript;
@@ -36,6 +36,8 @@ public class scr_Tile : MonoBehaviour
     public tile tileType;
     public buildings buildingType;
     public bool isBuilding;
+    public bool isTownhall;
+
     //guardar as sprites no GM
     public Sprite[] tileEdge;
     public Sprite[] tileSea;
@@ -183,6 +185,12 @@ public class scr_Tile : MonoBehaviour
     {
         switch (newType)
         {
+            case tile.empty:
+
+                tileType = newType;
+                spriteRenderer.sprite = tileSea[0];
+
+                break;
             case tile.floor:
 
                 tileType = newType;
@@ -199,7 +207,10 @@ public class scr_Tile : MonoBehaviour
         if (tileType == tile.floor)
         {
             isBuilding = true;
-
+            buildingType = newBuilding;
+            spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+            #region comment
+            /*
             switch (newBuilding)
             {
                 case buildings.lumbercamp:
@@ -221,26 +232,64 @@ public class scr_Tile : MonoBehaviour
 
                     break;
                 case buildings.storehouse:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
                     break;
                 case buildings.dock:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
                     break;
                 case buildings.farm:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
                     break;
                 case buildings.temple:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
                     break;
                 case buildings.market:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
                     break;
                 case buildings.wonder:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
                     break;
                 case buildings.workshop:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
                     break;
                 case buildings.statue:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
                     break;
                 case buildings.academy:
+
+                    buildingType = newBuilding;
+                    spriteRenderer.sprite = gmScript.buildingSprites[(int)newBuilding];
+
                     break;
                 default:
                     break;
             }
+            */
+            #endregion
         }
     }
 }

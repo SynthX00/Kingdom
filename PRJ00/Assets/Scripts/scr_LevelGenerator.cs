@@ -3,7 +3,7 @@ using System.Collections;
 
 public class scr_LevelGenerator : MonoBehaviour
 {
-    public enum tile { empty, floor, forest, stone, gold };
+    public enum tile { empty, floor, forest, stone, gold, building, townhall };
 
     public GameObject gameManager;
     public GameObject cam;
@@ -266,13 +266,14 @@ public class scr_LevelGenerator : MonoBehaviour
             int _x = (int)Random.Range(0, gridX);
             int _y = (int)Random.Range(0, gridY);
 
-            if (level[_x, _y] != 0)
+            if (level[_x, _y] == 1)
             {
                 startX = _x;
                 startY = _y;
                 _temp = true;
             }
         } while (!_temp);
+
 
         gameManager.GetComponent<scr_GameManager>().startX = startX;
         gameManager.GetComponent<scr_GameManager>().startY = startY;
