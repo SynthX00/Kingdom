@@ -26,9 +26,17 @@ public class scr_LevelGenerator : MonoBehaviour
 
     private int floorCount = 0;
 
+    //background music
+    public AudioSource audioSrc;
+    public AudioClip music;
+
     // Use this for initialization
     void Start()
     {
+        audioSrc = GetComponent<AudioSource>();
+        audioSrc.clip = music;
+        audioSrc.loop = true;
+        audioSrc.Play();
 
         level = new int[gridX, gridY];
         levelObjects = new GameObject[gridX, gridY];

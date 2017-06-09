@@ -51,9 +51,19 @@ public class scr_GameManager : MonoBehaviour
     private bool save = true;
     private bool isHighScore = false;
 
+    //audio
+    private AudioSource audioSrc;
+    public AudioClip[] sfx;
+    private bool playOnce = true;
+
     // Use this for initialization
     void Start()
     {
+        audioSrc = GetComponent<AudioSource>();
+        //audioSrc.clip = music;
+        //audioSrc.loop = true;
+        //audioSrc.Play();
+
         gameOver = false;
 
         //create level generator
@@ -166,6 +176,170 @@ public class scr_GameManager : MonoBehaviour
                 {
                     buildingsUI.SetActive(true);
                 }
+
+                switch (scrTile.buildingType)
+                {
+                    case scr_Tile.buildings.lumbercamp:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[6];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                    case scr_Tile.buildings.miningcamp1:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[9];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                    case scr_Tile.buildings.miningcamp2:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[9];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                    case scr_Tile.buildings.storehouse:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[3];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                    case scr_Tile.buildings.dock:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[2];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                    case scr_Tile.buildings.farm:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[0];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                    case scr_Tile.buildings.temple:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[8];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 2);
+                        }
+                        break;
+                    case scr_Tile.buildings.market:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[3];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                    case scr_Tile.buildings.wonder:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[8];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                    case scr_Tile.buildings.workshop:
+                        break;
+                    case scr_Tile.buildings.statue:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[8];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                    case scr_Tile.buildings.academy:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[8];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                    case scr_Tile.buildings.townhall:
+                        break;
+                    default:
+                        if (playOnce)
+                        {
+                            audioSrc.clip = sfx[1];
+                            audioSrc.loop = false;
+                            audioSrc.Play();
+                            playOnce = false;
+                        }
+                        else
+                        {
+                            Invoke("ResetAudio", 1);
+                        }
+                        break;
+                }
             }
 
             //deselect tile
@@ -200,6 +374,20 @@ public class scr_GameManager : MonoBehaviour
         else
         {
             //end game
+
+            levelScript.audioSrc.Stop();
+
+            if (playOnce)
+            {
+                audioSrc.clip = sfx[12];
+                audioSrc.loop = false;
+                audioSrc.Play();
+                playOnce = false;
+            }else
+            {
+                Invoke("ResetAudio", 5);
+            }
+
             DeselectTile();
             endScreen.SetActive(true);
             if (hasWonder)
@@ -292,7 +480,17 @@ public class scr_GameManager : MonoBehaviour
             default:
                 break;
         }
-
+        if (playOnce)
+        {
+            audioSrc.clip = sfx[0];
+            audioSrc.loop = false;
+            audioSrc.Play();
+            playOnce = false;
+        }
+        else
+        {
+            Invoke("ResetAudio", 1);
+        }
         DeselectTile();
     }
 
@@ -310,7 +508,21 @@ public class scr_GameManager : MonoBehaviour
                     gold += 150;
                     scrTile.UpdateTile(scr_Tile.tile.floor);
                     scrTile.SetBuilding(scr_Tile.buildings.dock);
+
+                    if (playOnce)
+                    {
+                        audioSrc.clip = sfx[2];
+                        audioSrc.loop = false;
+                        audioSrc.Play();
+                        playOnce = false;
+                    }
+                    else
+                    {
+                        Invoke("ResetAudio", 1);
+                    }
+
                     DeselectTile();
+
                 }
                 break;
             case scr_Tile.tile.forest:
@@ -322,6 +534,19 @@ public class scr_GameManager : MonoBehaviour
                     wood += 75 + extraRes;
                     scrTile.UpdateTile(scr_Tile.tile.floor);
                     scrTile.SetBuilding(scr_Tile.buildings.lumbercamp);
+
+                    if (playOnce)
+                    {
+                        audioSrc.clip = sfx[6];
+                        audioSrc.loop = false;
+                        audioSrc.Play();
+                        playOnce = false;
+                    }
+                    else
+                    {
+                        Invoke("ResetAudio", 1);
+                    }
+
                     DeselectTile();
                 }
 
@@ -336,6 +561,19 @@ public class scr_GameManager : MonoBehaviour
                     stone += 75 + extraRes;
                     scrTile.UpdateTile(scr_Tile.tile.floor);
                     scrTile.SetBuilding(scr_Tile.buildings.miningcamp1);
+
+                    if (playOnce)
+                    {
+                        audioSrc.clip = sfx[9];
+                        audioSrc.loop = false;
+                        audioSrc.Play();
+                        playOnce = false;
+                    }
+                    else
+                    {
+                        Invoke("ResetAudio", 1);
+                    }
+
                     DeselectTile();
                 }
 
@@ -350,6 +588,19 @@ public class scr_GameManager : MonoBehaviour
                     gold += 75 + extraRes;
                     scrTile.UpdateTile(scr_Tile.tile.floor);
                     scrTile.SetBuilding(scr_Tile.buildings.miningcamp2);
+
+                    if (playOnce)
+                    {
+                        audioSrc.clip = sfx[9];
+                        audioSrc.loop = false;
+                        audioSrc.Play();
+                        playOnce = false;
+                    }
+                    else
+                    {
+                        Invoke("ResetAudio", 1);
+                    }
+
                     DeselectTile();
                 }
 
@@ -641,4 +892,10 @@ public class scr_GameManager : MonoBehaviour
 
         return hs;
     }
+
+    private void ResetAudio()
+    {
+        playOnce = true;
+    }
+
 }
